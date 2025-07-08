@@ -19,5 +19,15 @@ public class Product {
     private Double price;
     private LocalDate createdAt;
     private LocalDate updatedAt;
+    @PrePersist
+    public void prePersist() {
+        LocalDate now = LocalDate.now();
+        this.createdAt = now;
+        this.updatedAt = now;
+    }
 
+    @PreUpdate
+    public void preUpdate() {
+        this.updatedAt = LocalDate.now();
+    }
 }
