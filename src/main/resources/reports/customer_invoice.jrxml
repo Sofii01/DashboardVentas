@@ -1,10 +1,11 @@
 <!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
 <jasperReport name="report_20250711212122" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c7a16625-ec56-4117-9906-af8d41d783e8">
-    <parameter name="totalAmount" class="java.lang.Double"/>
+
     <field name="productName" class="java.lang.String"/>
     <field name="quantity" class="java.lang.Integer"/>
     <field name="unitPrice" class="java.lang.Double"/>
     <field name="subTotal" class="java.lang.Double"/>
+    <field name="totalAmount" class="java.lang.Double"/>
     <background splitType="Stretch"/>
     <title height="50">
         <element kind="staticText" uuid="80748519-f4c1-495c-a1e9-138c10b12ba3" x="0" y="10" width="555" height="30" fontSize="14.0">
@@ -49,7 +50,7 @@
             <text><![CDATA[Total Amount]]></text>
         </element>
         <element kind="textField" uuid="25f26bf1-baff-43ce-a866-41a5e075bd25" x="370" y="0" width="185" height="30">
-            <expression><![CDATA[$P{totalAmount}]]></expression>
+            <expression><![CDATA[$F{totalAmount}]]></expression>
         </element>
     </summary>
 </jasperReport>

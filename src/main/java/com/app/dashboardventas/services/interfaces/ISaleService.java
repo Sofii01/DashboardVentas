@@ -11,4 +11,5 @@ public interface ISaleService {
     List<SaleResponseDto> getAllSales();
     void deleteSale(Long id);
     List<SaleReportDto> getSalesReport();
+    List<SaleReportDto> getSaleReportById(Long id);
 }

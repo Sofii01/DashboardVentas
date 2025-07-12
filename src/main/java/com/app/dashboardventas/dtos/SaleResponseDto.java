@@ -11,6 +11,7 @@ import java.util.List;
 @Getter @Setter
 @AllArgsConstructor
 public class  SaleResponseDto {
+        Long id;
         @JsonFormat(pattern = "yyyy-MM-dd hh:mm")
         LocalDateTime date;
         List<SaleItemResponseDto> items;

@@ -103,4 +103,17 @@ public class SaleServiceImpl implements ISaleService {
                 })
                 .toList();
     }
+
+    @Override
+    public List<SaleReportDto> getSaleReportById(Long id) {
+        Sale sale = saleRepository.findById(id).orElseThrow();
+        Double total = sale.getTotalAmount();
+        List<SaleItem> saleItems = sale.getSaleItems();
+        return saleItems.stream().map(i-> {
+            String productName = i.getProduct().getName();
+            Double subtotal = i.getQuantity() * i.getUnitPrice();
+            return new SaleReportDto(productName, i.getQuantity(), i.getUnitPrice(), subtotal, total);
+        }).toList();
+    }
+
 }

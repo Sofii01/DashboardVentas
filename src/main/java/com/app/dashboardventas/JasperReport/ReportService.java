@@ -26,15 +26,15 @@ public class ReportService {
         JasperPrint print = JasperFillManager.fillReport(jasperStream, params, dataSource);
         return JasperExportManager.exportReportToPdf(print);
     }
-    public byte[] generarCustomerInvoice(SaleReportDto dto) throws JRException {
-        InputStream jasperStream = getClass().getResourceAsStream("/reports/sale_customer_invoice.jasper");
+    public byte[] generarCustomerInvoice(List<SaleReportDto> dto) throws JRException {
+        InputStream jasperStream = getClass().getResourceAsStream("/reports/customer_invoice.jasper");
         if (jasperStream == null) {
-            throw new JRException("No se encontro el archivo /sale_customer_invoice.jasper en /reports");
+            throw new JRException("No se encontro el archivo /customer_invoice.jasper en /reports");
         }
-        double total = dto.getTotalAmount();
+
         Map<String, Object> params = new HashMap<>();
-        params.put("totalAmount", total);
-        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(List.of(dto));
+
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(dto);
         JasperPrint print = JasperFillManager.fillReport(jasperStream, params, dataSource);
         return JasperExportManager.exportReportToPdf(print);
     }
