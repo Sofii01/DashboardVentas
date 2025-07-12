@@ -1,0 +1,55 @@
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
+<jasperReport name="report_20250711212122" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c7a16625-ec56-4117-9906-af8d41d783e8">
+	<parameter name="totalAmount" class="java.lang.Double"/>
+	<field name="productName" class="java.lang.String"/>
+	<field name="quantity" class="java.lang.Integer"/>
+	<field name="unitPrice" class="java.lang.Double"/>
+	<field name="subTotal" class="java.lang.Double"/>
+	<background splitType="Stretch"/>
+	<title height="50">
+		<element kind="staticText" uuid="80748519-f4c1-495c-a1e9-138c10b12ba3" x="0" y="10" width="555" height="30" fontSize="14.0">
+			<text><![CDATA[Sales Report]]></text>
+		</element>
+	</title>
+	<columnHeader height="20">
+		<element kind="staticText" uuid="6a53cdea-9b42-4635-a7d0-717cbf0e21dd" x="0" y="0" width="150" height="20" bold="true">
+			<text><![CDATA[Product Name]]></text>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+		</element>
+		<element kind="staticText" uuid="9aac77e2-7fa9-4b9b-9fe2-37f2481a5b58" x="150" y="0" width="120" height="20" bold="true">
+			<text><![CDATA[Quantity]]></text>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+		</element>
+		<element kind="staticText" uuid="935ff8ba-dd25-4af8-9a77-798c934f1048" x="270" y="0" width="100" height="20" bold="true">
+			<text><![CDATA[Unit Price]]></text>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+		</element>
+		<element kind="staticText" uuid="935ff8ba-dd25-4af8-9a77-798c934f1048" x="370" y="0" width="185" height="20" bold="true">
+			<text><![CDATA[SubTotal]]></text>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<element kind="textField" uuid="db076006-5dba-41e5-a8b7-3414cde3486f" x="0" y="0" width="150" height="20">
+				<expression><![CDATA[$F{productName}]]></expression>
+			</element>
+			<element kind="textField" uuid="6f49a831-87b4-4169-aa06-87da5b7a0812" x="150" y="0" width="120" height="20">
+				<expression><![CDATA[$F{quantity}]]></expression>
+			</element>
+			<element kind="textField" uuid="cabe747b-c5f6-418f-b642-107bf4d86aa0" x="270" y="0" width="100" height="20">
+				<expression><![CDATA[$F{unitPrice}]]></expression>
+			</element>
+			<element kind="textField" uuid="cabe747b-c5f6-418f-b642-107bf4d86aa0" x="370" y="0" width="185" height="20">
+				<expression><![CDATA[$F{subTotal}]]></expression>
+			</element>
+		</band>
+	</detail>
+	<summary height="30">
+		<element kind="staticText" uuid="7009b4ba-056c-4bc4-bf05-ce519104f75a" x="0" y="0" width="370" height="30" bold="true">
+			<text><![CDATA[Total Amount]]></text>
+		</element>
+		<element kind="textField" uuid="25f26bf1-baff-43ce-a866-41a5e075bd25" x="370" y="0" width="185" height="30">
+			<expression><![CDATA[$P{totalAmount}]]></expression>
+		</element>
+	</summary>
+</jasperReport>

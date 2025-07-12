@@ -10,5 +10,6 @@ public class SaleReportDto {
     private String productName;
     private int quantity;
     private Double unitPrice;
+    private Double subTotal;
     private Double totalAmount;
 }

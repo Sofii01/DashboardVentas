@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -83,14 +84,23 @@ public class SaleServiceImpl implements ISaleService {
     @Override
     public List<SaleReportDto> getSalesReport() {
         List<SaleResponseDto> saleResponseDtos = this.getAllSales();
-        return saleResponseDtos.stream()
-                .flatMap(sale -> sale.getItems().stream()
-                        .map(item -> new SaleReportDto(
-                                item.product_name(),
-                                item.quantity(),
-                                item.unitPrice(),
-                                sale.getTotalAmount()
-                        ))
-                ).toList();
+        // Agrupar por nombre del producto
+        Map<String, List<SaleItemResponseDto>> itemsByProductName = saleResponseDtos.stream()
+                .flatMap(sale -> sale.getItems().stream())
+                .collect(Collectors.groupingBy(SaleItemResponseDto::product_name));
+
+        // Transformar a lista de SaleReportDto agrupada
+        return itemsByProductName.entrySet().stream()
+                .map(entry -> {
+                    String productName = entry.getKey();
+                    List<SaleItemResponseDto> items = entry.getValue();
+
+                    int totalQuantity = items.stream().mapToInt(SaleItemResponseDto::quantity).sum();
+                    Double unitPrice = items.get(0).unitPrice(); // O podrías usar un promedio si cambia
+                    Double subtotal = totalQuantity * unitPrice;
+                    Double total = subtotal;
+                    return new SaleReportDto(productName, totalQuantity, unitPrice, subtotal, total);
+                })
+                .toList();
     }
 }

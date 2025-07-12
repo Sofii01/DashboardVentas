@@ -2,7 +2,6 @@ package com.app.dashboardventas.controllers;
 
 import com.app.dashboardventas.JasperReport.ReportService;
 import com.app.dashboardventas.dtos.SaleReportDto;
-import com.app.dashboardventas.dtos.SaleResponseDto;
 import com.app.dashboardventas.services.interfaces.ISaleService;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +27,7 @@ public class ReportController {
         try {
             List<SaleReportDto> datos = saleService.getSalesReport();
 
-            byte[] pdf = reportService.generarReporteVenta(datos);
+            byte[] pdf = reportService.generarReporteVentas(datos);
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_PDF);
             headers.setContentDisposition(ContentDisposition.inline().filename("venta.pdf").build());
@@ -36,6 +35,7 @@ public class ReportController {
             return new ResponseEntity<>(pdf, headers, HttpStatus.OK);
 
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
