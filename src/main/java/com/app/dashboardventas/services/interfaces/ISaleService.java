@@ -12,4 +12,5 @@ public interface ISaleService {
     void deleteSale(Long id);
     List<SaleReportDto> getSalesReport();
     List<SaleReportDto> getSaleReportById(Long id);
+    List<SaleReportDto> getSaleReportByMonth(Integer month);
 }
