@@ -9,9 +9,11 @@ import com.app.dashboardventas.models.entities.SaleItem;
 import com.app.dashboardventas.repositories.IProductRepository;
 import com.app.dashboardventas.repositories.ISaleRepository;
 import com.app.dashboardventas.services.interfaces.ISaleService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -43,7 +45,11 @@ public class SaleServiceImpl implements ISaleService {
         double total = 0;
 
         for ( SaleItemRequestDto saleItem : saleRequestDto.items() ){
-            Product product = productRepository.findById(saleItem.product_id()).orElseThrow();
+            Product product = productRepository.findById(saleItem.product_id()).orElseThrow(
+                    ()-> new ResponseStatusException(
+                            HttpStatus.NOT_FOUND, "Product with id " + saleItem.product_id() + " not found"
+                    )
+            );
             SaleItem saleItemEntity = new SaleItem();
             saleItemEntity.setProduct(product);
             saleItemEntity.setQuantity(saleItem.quantity());
@@ -92,7 +98,9 @@ public class SaleServiceImpl implements ISaleService {
 
     @Override
     public List<SaleReportDto> getSaleReportById(Long id) {
-        Sale sale = saleRepository.findById(id).orElseThrow();
+        Sale sale = saleRepository.findById(id).orElseThrow(
+                ()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sale with id " + id + " not found")
+        );
         Double total = sale.getTotalAmount();
         List<SaleItem> saleItems = sale.getSaleItems();
         return saleItems.stream().map(i-> {

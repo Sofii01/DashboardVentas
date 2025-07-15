@@ -6,7 +6,10 @@ import com.app.dashboardventas.mappers.IProductMapper;
 import com.app.dashboardventas.models.entities.Product;
 import com.app.dashboardventas.repositories.IProductRepository;
 import com.app.dashboardventas.services.interfaces.IProductService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,13 +38,21 @@ public class ProductServiceImpl implements IProductService   {
 
     @Override
     public void deleteProduct(Long productId) {
-        Product product = productRepository.findById(productId).orElseThrow();
+        Product product = productRepository.findById(productId).orElseThrow(
+                () -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Product with id " + productId + " not found"
+                )
+        );
         productRepository.delete(product);
     }
 
     @Override
     public ProductResponseDto getProduct(Long productId) {
-        Product product = productRepository.findById(productId).orElseThrow();
+        Product product = productRepository.findById(productId).orElseThrow(
+                ()-> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Product with id " + productId + " not found"
+                )
+        );
         return productMapper.productToProductResponseDto(product);
     }
 
